@@ -1,0 +1,66 @@
+.container{
+    height: 2300px;
+    position: relative;
+    margin: 0 auto;
+    background: url("../images/01.png") no-repeat;
+}
+.row{  
+    height: 50px;
+    background: aqua;
+    position: relative;
+}
+.row img{
+    height: 50px;
+}
+.img04{
+    position: absolute;
+    right:275px;
+    top:0px;
+}
+.img05{
+    position: absolute;
+    right:0;
+    top:0px;
+}
+.col{
+    height: 300px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.row-son{
+   
+    white-space:nowrap;
+    overflow:hidden;
+    float:left;
+}
+.row1 .col-1{
+    width:30%;
+    float: left;
+}
+.row1 .col-2{
+    width:31%;
+    float: left;
+}
+.row1 .col-3{
+    width: 44%;
+    float: right;
+
+}
+.row1 .col-3 img{
+    width: 280px;
+    height: 200px;
+    text-align: center;
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
+.col-son{
+   
+    height: 50px;
+    border-bottom: 1px dashed #ccc;
+}
+.details{
+    
+
+}

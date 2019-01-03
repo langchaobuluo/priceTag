@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/index.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery-params.js"></script>
+		<style type="text/css">
+			.header {
+				background: url("images/09.png") no-repeat;
+				background-size: 100%;
+				width: 100%;
+				height: 100%;
+				zoom: 1;
+				-webkit-background-size: cover;
+				-o-background-size: cover;
+			}
+		</style>
+		<script type="text/javascript" src="js/template.js">
+		</script>
+
+	</head>
+
+	<body style="overflow:-Scroll;overflow-y:hidden;overflow-x:hidden">
+		<div class="header">
+			<section id="ktv-pl"> </section>
+		</div>
+
+		<script type="text/html" id="ktv">
+			<div class="header_1">
+				<h3 class="header_h">会员套餐价格
+              <span id="header_time">24:00-06:00</span>
+            </h3>
+
+			</div>
+			<!--豪华大房-->
+			<div class="nav_hang">
+				<div class="parallelogram">
+					<div class="chaoda">大房</div>
+				</div>
+				<div class="zhuangxiang">
+					会员专享
+				</div>
+			</div>
+			{{each info as value i}} {{if value.roomtypeid ==3}}
+			<div class="row a1">
+				<div class="col-xs-4">
+					<h4 class="menu_h asd">{{value.activityName}}</h4>
+					<div class="menu_f">会员价：</div>
+					<span id="hui_1">{{value.Commodity_vipPrice}}</span>
+					<span class="menu_f"> / 套</span>
+
+				</div>
+				<div class="col-xs-4">
+					<div class="col-son">
+						最长欢唱{{value.ActivityDuration/60}}小时
+					</div>
+					<ul>
+						{{each value.commodityLst as value1 t}}
+						<li>{{value1.SetMealDetail_CommodityName}}{{value1.SetMealDetail_Number}}{{value1.SetMealDetail_Units}}</li>
+
+						{{/each}}
+					</ul>
+
+				</div>
+				<div class="col-xs-4">
+
+					{{each value.commodityLst as value1 t}} {{if t==0}}
+					<p class="imgc"><img class="imgw" src="{{value1.PicturePath}}"></p>
+					{{/if}} {{/each}}
+
+				</div>
+			</div>
+			{{/if}} {{/each}}
+
+			<!-- 豪华超大 -->
+			<div class="nav_hang">
+				<div class="parallelogram">
+					<div class="chaoda">超大</div>
+				</div>
+				<div class="zhuangxiang">
+					会员专享
+				</div>
+			</div>
+			{{each info as value i}} {{if value.roomtypeid ==4}}
+			<div class="row a1">
+				<div class="col-xs-4">
+					<h4 class="menu_h asd">{{value.activityName}}</h4>
+					<div class="menu_f">会员价：</div>
+					<span id="hui_1">{{value.Commodity_vipPrice}}</span>
+					<span class="menu_f"> / 套</span>
+
+				</div>
+				<div class="col-xs-4">
+					<div class="col-son">
+						最长欢唱{{value.ActivityDuration/60}}小时
+					</div>
+					<ul>
+						{{each value.commodityLst as value1 t}}
+						<li>{{value1.SetMealDetail_CommodityName}}{{value1.SetMealDetail_Number}}{{value1.SetMealDetail_Units}}</li>
+
+						{{/each}}
+					</ul>
+
+				</div>
+				<div class="col-xs-4">
+					{{each value.commodityLst as value1 t}} {{if t==0}}
+					<p class="imgc"><img class="imgw" src="{{value1.PicturePath}}"></p>
+					{{/if}} {{/each}}
+				</div>
+			</div>
+			{{/if}} {{/each}}
+
+		</script>
+		<script>
+			test();
+
+			function test() {
+				var type = $.getURLParam("type");
+				var storeid = $.getURLParam("storeid");
+				$.post(
+					//           "http://192.168.11.52:8080/ControlCenter/showprice/showprice/activityprices?storeid="+storeid+"&type="+type,
+					"http://123.57.217.145:8080/ControlCenter/showprice/showprice/activityprices?storeid=" + storeid + "&type=" + type, {},
+					function(data) {
+						window.sessionStorage.setItem("data", JSON.stringify(data));
+						test1();
+					},
+					"json"
+				);
+
+			}
+
+			//			setInterval('test1()', 10000);
+
+			function test1() {
+				data = JSON.parse(window.sessionStorage.getItem("data"));
+				console.log(data);
+				var dt = new Date();
+				var hh = (dt.getHours() < 10 ? "0" + dt.getHours() : dt.getHours()) + ":" + dt.getMinutes();
+				var nowWeek = dt.getDay();
+				//				var value1 = 0;
+				var array = [];
+				var data1 = {};
+				var key = "info";
+				var BeginTime = "";
+				var EndTime = "";
+				var Priority = 0;
+				var spanid = 0;
+				var week = 1;
+				$.each(data.spanLst, function(n, value) {
+					if(hh > value.BeginTime && hh < value.EndTime ||
+						(value.EndTime < value.BeginTime && (hh >= value.BeginTime || hh < value.EndTime))) {
+						Priority = value.Priority;
+						spanid = value.spanid;
+						BeginTime = value.BeginTime;
+						EndTime = value.EndTime;
+					}
+				})
+				if(Priority == 1) {
+					if(nowWeek >= 1 && nowWeek <= 5) {
+						week = 1;
+					} else {
+						week = 6;
+					}
+				} else {
+					if(nowWeek >= 0 && nowWeek <= 4) {
+						week = 1;
+					} else {
+						week = 6;
+					}
+				}
+				$.each(data.activityLst, function(n1, value1) {
+					if(spanid == value1.spanid && value1.type == week && value1.roomtypeid > 2 && value1.roomtypeid < 5) {
+						array.push(value1);
+					}
+				});
+				array.sort(compare('Commodity_UnitPrice'))
+				data1[key] = array;
+				console.log(data1);
+				var html = template('ktv', data1);
+				$("#ktv-pl").html(html);
+				//配置时间
+				$("#header_time").text(BeginTime + "-" + EndTime);
+			}
+
+			function compare(property) {
+				return function(a, b) {
+					var value1 = a[property];
+					var value2 = b[property];
+					return value1 - value2;
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="application-name" content="移动版">
+<title>Document</title>
+<link rel="stylesheet" href="common/css/bootstrap.css">
+<link rel="stylesheet" href="common/css/base.css">
+<link rel="stylesheet" href="common/css/index.css">
+<script src="common/js/jquery.js"></script>
+<script src="common/js/jquery-params.js"></script>
+<style>
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body, #header {
+	background: url('common/images/07.png') no-repeat;
+	background-size: 100%;
+	width: 100%;
+	height: 100%;
+	zoom: 1;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+}
+
+.col-xs-6 {
+	height: 80px;
+	font-size: 23px;
+	line-height: 80px;
+	text-align: left;
+	font-family: '庞门正道标题体';
+}
+
+.xiaofang_a {
+	background-image: url(common/images/11-11.png);
+	transform: scale(0.5);
+	background-repeat: no-repeat;
+	min-width: 10px;
+	min-height: 20px;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-position: center 0;
+	font-size: 50px;
+	margin-left: 67px;
+	background-size: 100% 100%;
+}
+
+.xiaofang {
+	font-size: 40px;
+}
+
+.row {
+	margin-right: -15px;
+	margin-left: -15px;
+	margin-top: 180px;
+}
+
+.number1 {
+	background-image: url(common/images/11-16.png);
+	transform: scale(0.5);
+	background-repeat: no-repeat;
+	min-width: 10px;
+	min-height: 50px;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-position: center 0px;
+	font-size: 50px;
+}
+
+.number3 {
+	font-size: 30px;
+}
+/*xingai*/
+.dianmin_a {
+	height: 80px;
+	margin-left: 65px;
+	line-height: 80px;
+	text-align: left;
+	font-family: '庞门正道标题体';
+	letter-spacing: 0px;
+}
+
+.dianmin .xiaofang {
+	font-size: 40px;
+	letter-spacing: 2px
+}
+</style>
+</head>
+<body style="overflow: -Scroll; overflow-y: hidden; overflow-x: hidden">
+	<script type="text/html" id="ktv">
+			<div class="row">
+				{{each data as value i}}
+				<div class="col-xs-6">
+					<span class="xiaofang_a"><span class="xiaofang">{{value.name}}</span></span>
+					<span class="number1">
+           	 <span class="number">{{value.HousePrice}}
+            </span>
+					<span class="number3">/ 时</span>
+					</span>
+
+				</div>
+				<div class="col-xs-6"><span class="xiaofang_a"><span class="xiaofang">会员</span></span>
+					<span class="number1">
+        		<span class="number">{{value.MemberPrice}}</span>
+					<span class="number3">/ 时</span>
+					</span>
+
+				</div>
+				{{/each}}
+			</div>
+			<div id="dianmin" class="dianmin_a xiaofang">
+				<div class="dianmin">{{storeInfo.name}}</div>
+			</div>
+
+		</script>
+	<script type="text/javascript">
+			test();
+
+			function test() {
+				var storeid = $.getURLParam("storeid");
+				
+				$.post(
+										"../../showprice/showprice/houseprices?storeid=" + storeid, {},
+										//		"http://erpcontorl.mysongktv.com.cn:8080/ControlCenter/showprice/showprice/houseprices?storeid=" + storeid, {},
+
+					function(obj) {
+						window.sessionStorage.setItem("obj", JSON.stringify(obj));
+					},
+					"json"
+				);
+			}
+
+			window.onload = function() {
+				test1();		
+			}
+			setInterval('test1()', 120000);
+			
+			function test1() {
+				 obj = JSON.parse(window.sessionStorage.getItem("obj"));
+				console.log(obj,"123456")
+				var timer = ''
+				$.post(
+							"http://erpcontorl.mysongktv.com.cn:8080/ControlCenter/showprice/showprice/systemTime",
+							//	"http://123.57.217.145:8080/ControlCenter/showprice/showprice/systemTime",
+					function menu(res) {
+						
+						var result = JSON.parse(res)
+					
+						timer = result.cur
+				
+						var date = new Date(timer)
+						console.log(date,1111,typeof timer)
+						
+						var hh = (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + date.getMinutes();
+						var nowWeek = date.getDay();
+						var Array = [];
+						var obj1 = {};
+						//				var key = "data";
+						var BeginTime = "";
+						var EndTime = "";
+						var Priority = 0;
+						var spanid = 0;
+						var week = 1;
+						var key = "data";
+		
+						$.each(obj.spanLst, function(n, value) {
+							if(hh > value.BeginTime && hh < value.EndTime ||
+								(value.EndTime < value.BeginTime && (hh >= value.BeginTime || hh < value.EndTime))) {
+								Priority = value.Priority;
+								spanid = value.spanid;
+								BeginTime = value.BeginTime;
+								EndTime = value.EndTime;
+							}
+						})
+							
+						
+						if(Priority == 1 || Priority == 3) {
+							if(nowWeek >= 1 && nowWeek <= 5) {
+								week = 1;
+							} else {
+								week = 6;
+							}
+						} else {
+							if(nowWeek >= 0 && nowWeek <= 4) {
+								week = 1;
+							} else {
+								week = 6;
+							}
+						}
+						
+		
+						$.each(obj.info, function(n1, value1) {
+							if(value1.Weeks == week && value1.Priority == Priority) {
+								Array.push(value1);
+							}
+						});
+						//				var obj1 = {};
+						console.log(Array)
+						obj1[key] = Array;
+						obj1["storeInfo"] = obj.storeInfo;
+						var html = template('ktv', obj1);
+						$("#ktv-pl").html(html);
+						$("#header_time").text(BeginTime + "-" + EndTime);
+						
+				
+					}
+				);
+			}
+		</script>
+	<!--模板结束-->
+	<div id="header">
+
+		<!-- logo -->
+		<div class="header_1">
+			<h3 class="header_h">
+				计时房费价格 <span id="header_time" class="shijian"></span>
+			</h3>
+		</div>
+		<div class="detail" id="ktv-pl"></div>
+	</div>
+	<script src="common/js/template.js"></script>
+	<script src="common/js/index.js"></script>
+</body>
+
+</html>

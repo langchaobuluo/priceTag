@@ -1,0 +1,165 @@
+
+.header{
+background: url("../images/01.png") no-repeat ;
+    background-size: 100% ;
+    width:100%;
+    height:100%;
+    zoom: 1;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+.header_1{
+    height: 150px;
+    /* background: blue; */
+   
+}
+.header_h{
+    margin: 0;
+    font-family: '庞门正道标题体';
+    font-size: 58px;
+    line-height: 150px;
+    padding-left: 46px;
+}
+#header_time{
+    font-size: 40pt;
+}
+@font-face {
+    font-family: '庞门正道标题体';   /*字体名称*/
+    src: url('font/pm.ttf');       /*字体源文件*/
+  }
+  @font-face {
+    font-family: '乐酷';   /*字体名称*/
+    src: url('font/lk.ttf');       /*字体源文件*/
+  }
+@font-face {
+    font-family: '站酷快乐体2016修订版 ';   /*字体名称*/
+    src: url('font/lk.ttf');       /*字体源文件*/
+}
+.nav_hang{
+    height: 40px;
+    border-top: 1px solid #ccc;
+    background: #ede1f9;
+    position: relative;
+}
+.nav_hang img{
+height: 80px;
+float: right;
+}
+.parallelogram {  
+     width: 120px;
+     height: 40px;
+     transform:skew(-30deg);
+    -webkit-transform: skew(-30deg);
+    -moz-transform: skew(-30deg);
+     -o-transform:skew(-30deg);
+     -ms-transform:skew(-30deg); 
+     background-color:#fff;
+     margin: 50px auto; 
+     position: absolute;
+     top: -50px;
+     left: 70%;
+     }
+.chaoda{
+    font-family: '站酷快乐体2016修订版';
+    line-height: 40px;
+    text-align: center;
+    transform:skew(30deg);
+    font-size: 30px; 
+}
+.zhuangxiang{
+    font-family: '站酷快乐体2016修订版';
+    line-height: 40px;
+    margin-left: 86%;
+    font-size: 26px;
+}
+.asd{
+    font-size: 30px;
+    text-align: center;
+}
+.col-xs-4{
+    min-height:188px;
+    line-height:20px;
+    font-family:"站酷快乐体2016修订版";
+    padding-top: 0px;
+    border-top: 1px solid #707ebc;
+    border-left: 1px solid #707ebc ;
+    padding-left: -15px;
+    font-size: 20px;
+}
+/*.menu_f{
+	margin-left: 10px;
+}*/
+
+ /*.row :nth-of-type(even).col-xs-4{
+	border-left:1px solid  #707ebc;
+	border-right:1px solid  #707ebc;
+	
+}*/
+
+.menu_h{
+    font-family: "站酷快乐体2016修订版 ";
+}
+#hui_1{
+padding-left: 0px;
+font-family: "庞门正道标题体";
+font-size: 40px;
+background: url('../images/11-17.png') no-repeat 1px;
+background-size: cover;
+width: 100%;
+margin-left: 20px;
+}
+
+.imgw{
+    width: 230px;
+    height: 150px;
+    margin-top: 20px;
+}
+
+.imgc{
+    text-align: center;
+    height: 100%;
+  /*  line-height: 220px;*/
+    margin-left: -15px;
+}
+.imgh{
+    height: 50px;
+}
+
+
+.col-son{
+    border-bottom: 1px dashed #ccc;
+}
+.number{
+    font-size: 40px;
+}
+.shijian{
+    font-size:20px;
+    width: 290px;
+    height: 50px;
+}
+.taocan{
+    font-size: 15px;
+}
+.hours{
+    font-size: 10px;
+}
+.happy{
+    font-size: 18px;
+}
+.leku{
+    font-family: 乐酷;
+}
+#ktv-pl :nth-of-type(odd).a1{
+    background: #f9f0ff;
+}
+
+#ktv-pl :nth-of-type(even).a1{
+    background: #fff;
+}
+
+
+
+.col-xs-4 .menu_f{
+    line-height: 66px;
+    margin-left: 10px;
+}
